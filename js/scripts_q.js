@@ -1,5 +1,5 @@
 	const element1 = document.getElementById("myBar1");
-	const stockId_list=['2330','1102','1101','2356','1504','2371','2324','8150','2317','2002','2027','1402','1301','2887','2353','2347','3706','5410','2449','2308'] ;
+	const stockId_list=["2330","2454","3661","3443","2303","2606","9940","3042","2603","1713","2609","3711","2885","2882","2891","2887","2884","00982A","00981A","00980A"] ;
 	const mask_item1 = document.getElementById("hiddenMsg1") ;
 	let stockId=0 , btn2_expandId= "" ;
 	let width = 0 , intervalIds = [] , itemPrice_matrix=[] , itemPrice_arry = [] , itemYear_arry11 = [] , itemYear_arry12 = [] , itemYear_arry13 = [] , itemYear_arry21 = [] , itemYear_arry22 = [] , itemYear_arry23 = [] ;
@@ -14,22 +14,22 @@
    function refreshTime() {
              switch ( $(this).val()) {
 					  case "A": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_a.htm' ;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_a.htm' ;
 							break;
 					  case "B":
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_b.htm'	;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_b.htm'	;
 							break;
 					  case "C": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_c.htm' ;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_c.htm' ;
 							break;
 					  case "D": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_d.htm' ;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_d.htm' ;
 							break;
 					  case "E": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_e.htm' ;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_e.htm' ;
 							break;
 					  case "F": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_f.htm' ;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_f.htm' ;
 							break;
 					  case "W": 
 							window.location.href = 'https://perryjohnsonleon.github.io/exercise2/index_w.htm' ;
@@ -37,17 +37,17 @@
 					  case "X": 
 							window.location.href = 'https://perryjohnsonleon.github.io/exercise2/index_x.htm' ;
 							break;
+					  case "Z": 
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_z.htm' ;
+							break;
 					  case "K": 
 							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_k.htm' ;
 							break;
 					  case "Q": 
 							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/index_q.htm' ;
 							break;
-					  case "Z": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/index_z.htm' ;
-							break;
 					  case "P": 
-							window.location.href = 'https://perryjohnsonleon.github.io/tutorial/graph.htm' ;
+							window.location.href = 'https://perryjohnsonleon.github.io/tutorial2/graph.htm' ;
 							break;
 					  case "-1": 
 							window.location.href = 'https://perryjohnsonleon.github.io/exercise' ;
@@ -210,7 +210,12 @@
 			if (post) {
 				const quote_obj = post.data.quote ;
 				for ( var n in quote_obj) {
-				if ( n == "200009" ) document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" + quote_obj[n] + "</button>" ;
+				if ( n == "200009" ) {
+					if (num<18) 
+						document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" + quote_obj[n] + "</button>" 
+					else
+						document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" + stockId_list[num-1] + "</button>" ;
+				}	
 				if ( n == "6" ) elemId_price= quote_obj[n] ;
 				if ( n == "11" ) {
 						if ( quote_obj[n]> 0) {
