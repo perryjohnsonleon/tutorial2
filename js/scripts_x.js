@@ -1,5 +1,5 @@
 	const element1 = document.getElementById("myBar1");
-	const stockId_list=['2330','1102','1101','2356','1504','2371','2324','8150','2317','2002','2027','1402','1301','2887','2353','2347','3706','5410','2449','2308'] ;
+	const stockId_list=['2330','1102','1101','2356','2454','1402','2324','8150','2317','2002','2027','2303','2308','2887','2353','2347','2449','5410','3706','1301','2371','1504','0050','0056'] ;
 	const mask_item1 = document.getElementById("hiddenMsg1") ;
 	let stockId=0 , btn2_expandId= "" ;
 	let width = 0 , intervalIds = [] , itemPrice_matrix=[] , itemPrice_arry = [] , itemYear_arry11 = [] , itemYear_arry12 = [] , itemYear_arry13 = [] , itemYear_arry21 = [] , itemYear_arry22 = [] , itemYear_arry23 = [] ;
@@ -452,6 +452,10 @@
 		await displayPost(17);
 		await displayPost(18);
 		await displayPost(19);
+		await displayPost(20);
+		await displayPost(21);
+		await displayPost(22);
+		await displayPost(23);
 	}  
 
    function timestampToTime(timestamp) {
