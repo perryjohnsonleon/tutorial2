@@ -395,6 +395,7 @@
 		}
 		if  (oldcollapseBtn2 && firstVisit) {
 			oldcollapseBtns.outerHTML = "<div id='collapseBtns' style='display:block'><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" +
+			"<div id='switchBtn' style='justify-content:center;'><img src='switchbtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='collapseBtn3' style='justify-content:center;'><img src='collapsex.png' style='cursor:pointer;' onclick='collapseElement3()' /></div></div>"; 
 		}	
 		while(intervalIds.length){
@@ -485,10 +486,8 @@
 				animation: false,             // 關閉動畫，加速更新
 				scales: {
 				  y1: {
-					type: 'linear',
-					min:min_price,  
-					max:max_price,  
-					position: 'left'
+						grid: { color: '#333' },
+						ticks: { color: '#aaa' }
 				  },
 				  y2: {
 					type:'linear',
@@ -539,11 +538,31 @@
 				  }
 				}
 			  }
-			});							
+			});
+
+			if (chart && firstVisit) {
+				firstVisit= false;
+				document.getElementById('switchBtn').addEventListener('click', function() {
+				// Toggle the chart configuration to use a single y-axis
+				chart.options.scales = {
+				  y: {
+					type: 'linear',
+					grid: {color:'#333'},
+					ticks: {color:'#aaa'},
+					position: 'left',
+					beginAtZero: true
+				  }
+				};
+				chart.data.datasets.forEach((dataset) => {
+				  delete dataset.y2; 
+				});
+				chart.update();
+			  });
+			}
+			
 		  chart.update();	
 		  let running=false ;
 		  id=setInterval(async() => {
-				// let mymatrix, wi_c , wi_t , wi_tt, midline_txt , mid_price=0 ,labels , dataPoints , title="" , point_no=0 ;
 				if (running) return;
 				  running=true;
 				  const post1 = await getData1(stockId);
@@ -615,6 +634,7 @@
 	   if (mask_item2) {
 	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:flex;'><div><canvas id='realtimeChart' width='750' height='400' style='display:none;'></canvas></div>" + 
 			"<div id='collapseBtns' style='display:flex'><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" + 
+			"<div id='switchBtn' style='display:none;justify-content:center;'><img src='switchbtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='collapseBtn3' style='display:none;justify-content:center;'><img src='collapsex.png' style='cursor:pointer;' onclick='collapseElement3()' /></div></div>" ;
 		}
     }
