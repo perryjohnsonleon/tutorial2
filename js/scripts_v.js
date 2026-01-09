@@ -1,5 +1,5 @@
 	const element1 = document.getElementById("myBar1");
-	const stockId_list=['2330','1102','1101','2356','2454','1402','2324','8150','2317','2002','2027','2303','2308','2887','2353','2347','2449','5410','3706','1301','2371','1504','0050','0056'];
+	const stockId_list=["2330","2454","3661","3443","2303","2606","9940","3042","2603","1713","2609","3711","2885","2882","2891","2887","2884","00982A","00981A","00980A"] ;
 	const mask_item1 = document.getElementById("hiddenMsg1") ;
 	const mask_item2 = document.getElementById("hiddenMsg2") ;
 	const mask_button = document.getElementById("collapseBtn2") ;
@@ -447,7 +447,7 @@
 				}
 				mid_price2=wi_c-incdecPrice2;
 				mid_price2=mid_price2.toFixed(2);
-				midline_txt2= '加權指數平盤：' + mid_price2.toString() ; 				
+				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']' ; 				
 			}
 			for (i=0;i<wi_tt.length ;i++) {
 				let date = new Date(wi_tt[i] * 1000);
@@ -467,8 +467,8 @@
 				  {
 					label:item_name1,	// Legend_y1 show
 					data: dataPoints1,
-					borderColor: 'red',   // 螢光綠線
-					yAxisID:'y1',
+					borderColor: '#f00',   // 螢光綠線
+					yAxisID:'#f00',
 					borderWidth: 2,
 					cubicInterpolationMode: 'monotone',
 					tension: 0.3,
@@ -479,7 +479,7 @@
 				  {
 					label:item_name2,   // Legend_y2 show
 					data: dataPoints2,
-					borderColor: 'blue',   // 螢光綠線
+					borderColor: '#0048ff',   // 螢光綠線
 					yAxisID:'y2',
 					borderWidth: 2,
 					cubicInterpolationMode: 'monotone',
