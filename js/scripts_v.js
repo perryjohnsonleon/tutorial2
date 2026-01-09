@@ -1,6 +1,5 @@
 	const element1 = document.getElementById("myBar1");
-	const stockId_list=["2330","2454","3661","3443","2303","2606","9940","3042","2603","1713","2609","3711","2885","2882","2891","2887","2884","00982A","00981A","00980A"] ;
-	const mask_item1 = document.getElementById("hiddenMsg1") ;
+	const stockId_list=["2330","2454","3661","3443","2303","2606","9940","3042","2603","1713","2609","3711","2885","2882","2891","2887","2884","00982A","00981A","00980A"] ;	const mask_item1 = document.getElementById("hiddenMsg1") ;
 	const mask_item2 = document.getElementById("hiddenMsg2") ;
 	const mask_button = document.getElementById("collapseBtn2") ;
 	let running=false,sw_no=2,firstVisit = true ;     // original value:  true 
@@ -380,15 +379,14 @@
 		  }
 	 }
 
-  async function displayPostChart() {
-		// mask_item2.style.display = "block" ;
-		// mask_button.style.display = "block" ;		
+  async function displayPostChart() {	
 		document.documentElement.scrollTop=0;
   } 
-
+ 
  async function realtimePrice(stockId,firstVisit) {	
  		let mymatrix,wi_o,wi_h,wi_c,wi_cc,wi_gg,wi_t,wi_tt,midline_txt1,midline_txt2,title_txt,item_name1,item_name2,item_price1,item_price2,mid_price1=0,mid_price2=0,min_price=0,max_price=0,incdecPrice1,incdecPrice2,timeLabel,labels=[],dataPoints1=[],dataPoints2=[],title1="圖例1",title2="圖例2",point_no=0;
-		if (firstVisit) sw_no=2 ;
+		let rightVisible = true;
+		if (firstVisit) sw_no=2;
 		const oldChart=document.getElementById("realtimeChart");
 		const oldcollapseBtn2=document.getElementById("collapseBtn2");
 		const oldstopBtn=document.getElementById("stopBtn");
@@ -447,12 +445,18 @@
 				}
 				mid_price2=wi_c-incdecPrice2;
 				mid_price2=mid_price2.toFixed(2);
-				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']' ; 				
+				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 				
 			}
+			let min ;
 			for (i=0;i<wi_tt.length ;i++) {
 				let date = new Date(wi_tt[i] * 1000);
 				let time = date.toLocaleTimeString('zh-CN', {hour12: false,});
 				wi_tt[i]=time;
+				// const hour = parseInt(time.split(":")[0], 10);
+				min = parseInt(time.split(":")[1], 10) ;
+				if (min==0 || min==20 || min==40) wi_tt[i]=time ;
+				// min = min % 20;
+				console.log(min);
 			}
 			labels=[...wi_tt];
 			dataPoints1=[...wi_cc] ;
@@ -460,103 +464,6 @@
 			dataPoints2=[...wi_gg] ;
 	      const ctx = document.getElementById('realtimeChart').getContext('2d');
 		  config = {
-			  type: 'line',
-			  data: {
-				labels: labels,
-				datasets: [
-				  {
-					label:item_name1,	// Legend_y1 show
-					data: dataPoints1,
-					borderColor: '#f00',   // 螢光綠線
-					yAxisID:'#f00',
-					borderWidth: 2,
-					cubicInterpolationMode: 'monotone',
-					tension: 0.3,
-					fill: false,
-					pointRadius: 0,           // 隱藏點
-					pointHoverRadius: 0
-				  },
-				  {
-					label:item_name2,   // Legend_y2 show
-					data: dataPoints2,
-					borderColor: '#0048ff',   // 螢光綠線
-					yAxisID:'y2',
-					borderWidth: 2,
-					cubicInterpolationMode: 'monotone',
-					tension: 0.3,
-					fill: false,
-					pointRadius: 0,           // 隱藏點
-					pointHoverRadius: 0
-				  }
-				]
-			  },
-			  options: {
-				responsive: true,
-				maintainAspectRatio: false,
-				animation: {
-				onComplete() {
-					setTimeout(() => chart.update(), 0);
-				}},             // 關閉動畫，加速更新
-				scales: {
-				  y1: {
-						min:min_price,  
-						max:max_price,
-						grid: { color: '#333' },
-						ticks: { color: '#aaa' },
-						position: 'left'
-				  },
-				  y2: {
-					type:'linear',
-					position: 'right'
-				  }
-				},
-				plugins: {
-				  annotation: {
-					annotations: {
-					  leftMidline: {
-						type: 'line',
-						yScaleID: 'y1',
-						yMin:mid_price1,
-						yMax:mid_price1,
-						borderColor: '#ff4444',
-						borderWidth: 1.5,
-						borderDash: [6, 6],
-						label: {
-						  display: true,
-						  content: midline_txt1,				// '中線 y=38'
-						  color: '#c431a7',						// '#00ff88'
-						  backgroundColor: '#000' ,
-						  font: {
-							size: 12,
-							weight: 100,  // Set 'lighter'
-						  }
-						//  position: 'start'
-						}
-					  },
-					  rightMidline: {
-						type: 'line',
-						yScaleID: 'y2',
-						yMin:mid_price2,
-						yMax:mid_price2,
-						borderColor: '#00b3ff',
-						borderWidth: 1.5,
-						borderDash: [6, 6],
-						label: {
-						  display: true,
-						  content: midline_txt2 ,			// '中線 y=38'
-						  fontWeight:100,
-						  color: '#00b3ff',
-						  backgroundColor: '#000',
-						  position: 'end'
-						}
-					  }
-					}
-				  }
-				}
-			  }
-			} ;
-
-		  config1 = {
 			  type: 'line',
 			  data: {
 				labels: labels,
@@ -652,65 +559,27 @@
 				}
 			  }
 			} ;
-			
-		  let chart= new Chart(ctx,config);
+
+			let chart= new Chart(ctx,config);
 			console.log("原始chart：",chart,"原始開關編號",sw_no) ;
-			const parentScale = chart.options.scales ;
-			const childScale = parentScale.y2;
-			const parentMidline = chart.options.plugins.annotation.annotations ;
-			const childMidline = parentMidline.rightMidline;
-			let dataset2=null;
-			// const bkupChart = _.cloneDeep(chart);
-			// console.log(222,bkupChart) ;	
 			document.getElementById('oneBtn').addEventListener('click', function() {
-			//	console.log("第一按紐chart：",chart,"開關編號：",sw_no) ;
-				// Toggle the chart configuration to use a single y-axis
+				rightVisible=false;
+				chart.options.scales.y2.display=false;
+				chart.options.plugins.annotation.annotations.rightMidline.display=false;
 				if (sw_no==1) {
 					console.log("Chart (一):",chart,"SW no:",sw_no) ;	
 					return; } 
 				else sw_no=1 ;
-				/*
-				while(intervalIds.length){
-					clearInterval(intervalIds.pop());
-				}
-				*/
-				delete parentScale.y2;
-				chart.data.datasets.forEach((element,index) => {
-				  // console.log(index,element) ;				  
-				  // console.log(`Index: ${index}, Element: ${element}`);
-				  if (index==1 ) { 
-					 dataset2=chart.data.datasets.pop();
-					// console.log(index,element) ;
-				  }	
-				});
-			//	console.log("Chart 11:",chart,"SW no:",sw_no) ;	
-				delete parentMidline.rightMidline;
-				// chart.update();
 				console.log("第一按紐chart：",chart,"開關編號：",sw_no) ;
 			});
 
-			document.getElementById('twinBtn').addEventListener('click', function() {
-				//	console.log("第二按紐chart：",chart,"開關編號：",sw_no) ;
+			document.getElementById('twinBtn').addEventListener('click', async() => {
 					if (sw_no==2) {
 						return; }
 					else sw_no=2 ;
-					/*
-					while(intervalIds.length){
-						clearInterval(intervalIds.pop());
-					}
-					console.log("Scale Y2子軸:",childScale);					
-					parentScale["y2"]= {
-						type:'linear',
-						position: 'right'
-					};
-					chart.data.datasets.push(dataset2);
-					parentMidline.rightMidline=childMidline;
-					// chart.update();
-					*/
-					if (chart) {
-						chart.destroy();
-					}
-					chart = new Chart(ctx, config1);
+					rightVisible=true;
+					chart.options.scales.y2.display=true;
+					chart.options.plugins.annotation.annotations.rightMidline.display=true;
 					console.log("第二按紐chart：",chart,"開關編號：",sw_no) ;
 			  });
 			  
@@ -738,14 +607,14 @@
 				firstVisit= false;
 			}
 		 */
-		  console.log("●● 有跑嗎? ●●",running) ;	
+		  console.log("●● 有跑嗎? ●●",running) ;	  
 		  chart.update();	
 		  id=setInterval(async() => {
 				console.log("●● 有跑嗎? ●●",running) ;
 				if (running) return;
 				  running=true;
 				  const post1 = await getData1(stockId);
-				  if (sw_no==2) {
+				  if (rightVisible==true) {
 					  const post2 = await getData2();
 				  }
 				  if (post1) {
@@ -765,7 +634,7 @@
 						midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
 						midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";						
 					}
-				  if (sw_no==2 && post2)  {
+				  if (rightVisible==true && post2)  {
 						wi_o=post2.data.o;
 						wi_h=post2.data.h;
 						wi_c=post2.data.c;
@@ -781,8 +650,16 @@
 					}
 				 labels.push(timeLabel);
 				 dataPoints1.push(item_price1);
-				 if (sw_no==2) dataPoints2.push(item_price2);			 
-				 chart.update();				
+				 if (rightVisible==true) 
+					 dataPoints2.push(item_price2) 						
+				 else {
+					 for (let i=0;i<dataPoints2.length;i++) {
+						console.log(888,dataPoints2[i]);
+						dataPoints2.pop()
+					 }	 
+				 } ;		
+				 chart.update;
+				// console.log(dataPoints2);	
 				 count++ ;
 				 running=false ;
 			},3000);
