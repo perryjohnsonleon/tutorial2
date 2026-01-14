@@ -448,18 +448,25 @@
 				mid_price2=mid_price2.toFixed(2);
 				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 				
 			}
-			let min ;
-			for (i=0;i<wi_tt.length ;i++) {
+			for (let i=0;i<wi_tt.length ;i++) {
 				let date = new Date(wi_tt[i] * 1000);
 				let time = date.toLocaleTimeString('zh-CN', {hour12: false,});
 				wi_tt[i]=time;
-				// const hour = parseInt(time.split(":")[0], 10);
-				min = parseInt(time.split(":")[1], 10) ;
-				if (min==0 || min==20 || min==40) wi_tt[i]=time ;
+				const hour = parseInt(time.split(":")[0], 10);
+				const min = parseInt(time.split(":")[1], 10) ;
+				if (min % 10 === 0) {
+					wi_tt[i]=hour.toString() + min.toString(); 
+					console.log(111,hour.toString() + min.toString());
+				}	
+				else {
+				//	wi_tt[i]=i+1;
+					wi_tt[i]="" ; 
+					console.log(222,wi_tt[i]);
+				} ;
 				// min = min % 20;
-				console.log(min);
 			}
 			labels=[...wi_tt];
+			console.log(888,labels);
 			dataPoints1=[...wi_cc] ;
 			wi_gg = Array(wi_tt.length).fill(item_price2);
 			dataPoints2=[...wi_gg] ;
@@ -560,40 +567,29 @@
 				}
 			  }
 			} ;
-
 			let chart= new Chart(ctx,config);
-			console.log("原始chart：",chart,"原始開關編號",sw_no) ;
 			document.getElementById('oneBtn').addEventListener('click', function() {
 				rightVisible=false;
 				chart.options.scales.y2.display=false;
 				chart.options.plugins.annotation.annotations.rightMidline.display=false;
-				if (sw_no==1) {
-					console.log("Chart (一):",chart,"SW no:",sw_no) ;	
-					return; } 
-				else sw_no=1 ;
-				console.log("第一按紐chart：",chart,"開關編號：",sw_no) ;
+				if (sw_no==1) {return } 
+				else {
+					 for (let i=0;i<dataPoints2.length;i++) {
+						console.log(888,dataPoints2[i]);
+						dataPoints2.pop()
+					 }
+					 console.log(999,dataPoints2);
+					sw_no=1;
+				} 
 			});
-
 			document.getElementById('twinBtn').addEventListener('click', async() => {
-					if (sw_no==2) {
-						return; }
-					else sw_no=2 ;
+					if (sw_no==2) {return} else sw_no=2 ;
 					rightVisible=true;
 					chart.options.scales.y2.display=true;
 					chart.options.plugins.annotation.annotations.rightMidline.display=true;
-					console.log("第二按紐chart：",chart,"開關編號：",sw_no) ;
 			  });
-			  
-			document.getElementById('stopBtn').addEventListener('click', function() {
-					running=true;
-					console.log("第三按紐chart：",chart,"開關編號：",sw_no) ;
-			  });	  
-			
-			document.getElementById('goBtn').addEventListener('click', function() {
-					running=false;
-					console.log("第四按紐chart：",chart,"開關編號：",sw_no) ;
-			  });
-			  
+			document.getElementById('stopBtn').addEventListener('click',()=>(running=true));	  
+			document.getElementById('goBtn').addEventListener('click',()=>(running=false));
          /*			
 			if (chart && sw_no==2) {
 				console.log(111,chart) ;
@@ -608,11 +604,18 @@
 				firstVisit= false;
 			}
 		 */
-		  console.log("●● 有跑嗎? ●●",running) ;	  
 		  chart.update();	
 		  id=setInterval(async() => {
-				console.log("●● 有跑嗎? ●●",running) ;
-				if (running) return;
+				const marketClosetime = "13:30:00"; 
+				const [h, m, s] = marketClosetime.split(':').map(Number);
+				const timeToSeconds= h * 3600 + m * 60 + s ;
+				const now = new Date();
+				const nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+				// if (nowSeconds > timeToSeconds ) console.log("Current time is later than or equal to target time");		
+				if (nowSeconds > timeToSeconds || running) 
+					return
+				 else 
+				  console.log("Current time is later than or equal to target time");		
 				  running=true;
 				  const post1 = await getData1(stockId);
 				  if (rightVisible==true) {
@@ -623,7 +626,17 @@
 						wi_h=post1.data.h;
 						wi_c=post1.data.c;
 						const now = new Date();
-						timeLabel = now.toLocaleTimeString('zh-TW', { hour12: false, timeStyle: 'medium' });
+						let time = now.toLocaleTimeString('zh-TW', { hour12: false, timeStyle: 'medium' });
+						const hour = parseInt(time.split(":")[0], 10);
+						const min = parseInt(time.split(":")[1], 10) ;
+						if ( min % 10===0) {
+							timeLabel=hour.toString() + min.toString() ; 
+							console.log(333,hour.toString() + min.toString());
+						}	
+						else {
+							timeLabel=""; 
+							console.log(444,hour.toString() + min.toString());
+						} ;
 						const quote_obj = post1.data.quote ;
 						for ( var n in quote_obj) {
 						   if ( n == "200009" )  item_name1=quote_obj[n] ;
@@ -646,7 +659,7 @@
 						   if ( n == "11" ) incdecPrice2= quote_obj[n] ;
 						}
 						mid_price2=item_price2-incdecPrice2;
-						midline_txt2= item_name2+'平盤：$$$$'+mid_price2.toString() ; 
+						midline_txt2= item_name2+'平盤：'+mid_price2.toString() ; 
 						midline_txt2 = midline_txt2 + "【" + item_price2.toString() + "】";				
 					}
 				 labels.push(timeLabel);
@@ -660,7 +673,6 @@
 					 }	 
 				 } ;		
 				 chart.update;
-				// console.log(dataPoints2);	
 				 count++ ;
 				 running=false ;
 			},3000);
@@ -671,9 +683,7 @@
         var date = new Date(timestamp * 1000);
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) ;
-
 	    return Y+M ;
-
     }
 
 	async function showElement(stockNo,firstVisit) {
