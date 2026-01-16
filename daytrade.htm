@@ -42,7 +42,6 @@
     const intervalIds=[];	
 	// 初始數據
 	async function getData(stockId) {
-	    console.log(888,stockId); 
 		let fetchUrl_str="" ;
 		let fetchUrl_str1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:" , fetchUrl_str2=":STOCK&quote=1"   ;
 		if (stockId == 9999 ) 
@@ -99,7 +98,7 @@
 				   if ( n == "200009" ) item_name1=quote_obj[n] ;
 				}
 				mid_price=item_price-incdecPrice;
-				midline_txt= item_name1 + '：中線 y=' + mid_price.toString() + '【' + wi_tt[wi_tt.length-1] + '】' ;  
+				midline_txt= item_name1 + '平盤：' + mid_price.toString() + '【' + incdecPrice + '】' ;  
 			}
 			const chart = new Chart(ctx, {
 				  type: 'line',
@@ -163,16 +162,13 @@
 				  }
 				});	
 			chart.update();	
-		 // console.log("資料回來了:", data);
 		  // 接續執行任務
 		  let running=false , count=0;
 		  id=setInterval(async() => {
-				// let mymatrix, wi_c , wi_t , wi_tt, midline_txt , mid_price=0 ,labels , dataPoints , title="" , point_no=0 ;
 				if (running) return;
 				running=true;
 				const post =await getData(stockId) ;
 				if (post) {
-					//console.log("資料回來了:",post);
 					wi_c=post.data.c ;
 					wi_d=post.data.d ;
 					wi_t=post.data.t ;
@@ -191,7 +187,6 @@
 					   if ( n == "11" ) incdecPrice= quote_obj[n] ;
 					}
 					mid_price=item_price-incdecPrice;					
-					// midline_txt= '中線 y=' + mid_price.toString() + '【' + wi_tt[wi_tt.length-1] + '】' ;  
 				}
 				chart.update();	
 				count++ ;
