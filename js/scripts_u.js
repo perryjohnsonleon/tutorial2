@@ -393,12 +393,8 @@
 		const oldstopBtn=document.getElementById("stopBtn");
 		const oldcollapseBtns=document.getElementById("collapseBtns");
 		const oldhiddenMsg2=document.getElementById("hiddenMsg2");	
-		if (oldhiddenMsg2 && firstVisit) 		
-			oldhiddenMsg2.style.display = "flex" ;		
-		if (oldChart && firstVisit) {
-			// <div id="hiddenMsg2" style="display:flex">
-			oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;		
-		}
+		if (oldhiddenMsg2 && firstVisit) oldhiddenMsg2.style.display = "flex" ;		
+		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;
 		if  (oldcollapseBtn2 && firstVisit) {
 			oldcollapseBtns.outerHTML = "<div id='collapseBtns' style='display:block'><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" +
 			"<div id='oneBtn' style='justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
@@ -430,7 +426,15 @@
 				mid_price1=item_price1-incdecPrice1;
 				mid_price1=mid_price1.toFixed(2);
 				max_price=mid_price1*1.05 ;
-				min_price=mid_price1*0.95 ;				
+				min_price=mid_price1*0.95 ;
+				if (item_price1>900 && incdecPrice1>50) {
+					max_price=mid_price1*1.15 ;
+					min_price=mid_price1*0.85 ;
+				}
+				if (item_price1<70 && incdecPrice1>2.5) {
+					max_price=mid_price1*1.12 ;
+					min_price=mid_price1*0.9 ;
+				}				
 				midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
 				midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";
 			}
@@ -446,7 +450,9 @@
 				}
 				mid_price2=wi_c-incdecPrice2;
 				mid_price2=mid_price2.toFixed(2);
-				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 				
+				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 
+				wi_gg = Array(wi_tt.length).fill(item_price2);
+				dataPoints2=[...wi_gg] ;
 			}
 			for (let i=0;i<wi_tt.length ;i++) {
 				let date = new Date(wi_tt[i] * 1000);
@@ -454,22 +460,12 @@
 				wi_tt[i]=time;
 				const hour = parseInt(time.split(":")[0], 10);
 				const min = parseInt(time.split(":")[1], 10) ;
-				if (min % 10 === 0) {
+				if (min % 10 === 0) 
 					wi_tt[i]=hour.toString() + min.toString(); 
-					console.log(111,hour.toString() + min.toString());
-				}	
-				else {
-				//	wi_tt[i]=i+1;
-					wi_tt[i]="" ; 
-					console.log(222,wi_tt[i]);
-				} ;
-				// min = min % 20;
+				else wi_tt[i]="" ; 
 			}
 			labels=[...wi_tt];
-			console.log(888,labels);
-			dataPoints1=[...wi_cc] ;
-			wi_gg = Array(wi_tt.length).fill(item_price2);
-			dataPoints2=[...wi_gg] ;
+			dataPoints1=[...wi_cc];
 	      const ctx = document.getElementById('realtimeChart').getContext('2d');
 		  config = {
 			  type: 'line',
@@ -568,54 +564,37 @@
 			  }
 			} ;
 			let chart= new Chart(ctx,config);
-			document.getElementById('oneBtn').addEventListener('click', function() {
+			document.getElementById('oneBtn').addEventListener('click', async() => {
 				rightVisible=false;
 				chart.options.scales.y2.display=false;
 				chart.options.plugins.annotation.annotations.rightMidline.display=false;
-				if (sw_no==1) {return } 
-				else {
-					 for (let i=0;i<dataPoints2.length;i++) {
-						console.log(888,dataPoints2[i]);
-						dataPoints2.pop()
-					 }
-					 console.log(999,dataPoints2);
-					sw_no=1;
-				} 
+				for (let i=0;i<dataPoints2.length-1;i++) dataPoints2.pop() ;
+				if (sw_no==1) return  
+				else sw_no=1;
 			});
 			document.getElementById('twinBtn').addEventListener('click', async() => {
 					if (sw_no==2) {return} else sw_no=2 ;
+					if (dataPoints2.length != 0) {
+						for (let i=0;i<dataPoints2.length-1;i++) {
+							dataPoints2.pop()
+						}
+					}
 					rightVisible=true;
 					chart.options.scales.y2.display=true;
 					chart.options.plugins.annotation.annotations.rightMidline.display=true;
 			  });
 			document.getElementById('stopBtn').addEventListener('click',()=>(running=true));	  
 			document.getElementById('goBtn').addEventListener('click',()=>(running=false));
-         /*			
-			if (chart && sw_no==2) {
-				console.log(111,chart) ;
-				firstVisit= false;
-				// ~~~~~ one button
-
-			  // One button end
-			}
-			if (chart && sw_no==1) {
-				console.log(222,chart) ;
-				// Toggle the chart configuration to use multiple y-axis
-				firstVisit= false;
-			}
-		 */
-		  chart.update();	
+			chart.update();	
 		  id=setInterval(async() => {
 				const marketClosetime = "13:30:00"; 
 				const [h, m, s] = marketClosetime.split(':').map(Number);
 				const timeToSeconds= h * 3600 + m * 60 + s ;
 				const now = new Date();
-				const nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-				// if (nowSeconds > timeToSeconds ) console.log("Current time is later than or equal to target time");		
+				const nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();	
 				if (nowSeconds > timeToSeconds || running) 
 					return
-				 else 
-				  console.log("Current time is later than or equal to target time");		
+				 else 	
 				  running=true;
 				  const post1 = await getData1(stockId);
 				  if (rightVisible==true) {
@@ -629,14 +608,9 @@
 						let time = now.toLocaleTimeString('zh-TW', { hour12: false, timeStyle: 'medium' });
 						const hour = parseInt(time.split(":")[0], 10);
 						const min = parseInt(time.split(":")[1], 10) ;
-						if ( min % 10===0) {
-							timeLabel=hour.toString() + min.toString() ; 
-							console.log(333,hour.toString() + min.toString());
-						}	
-						else {
-							timeLabel=""; 
-							console.log(444,hour.toString() + min.toString());
-						} ;
+						if ( min % 10===0) 
+							timeLabel=hour.toString() + min.toString() 
+						else timeLabel=""; 
 						const quote_obj = post1.data.quote ;
 						for ( var n in quote_obj) {
 						   if ( n == "200009" )  item_name1=quote_obj[n] ;
@@ -668,7 +642,6 @@
 					 dataPoints2.push(item_price2) 						
 				 else {
 					 for (let i=0;i<dataPoints2.length;i++) {
-						console.log(888,dataPoints2[i]);
 						dataPoints2.pop()
 					 }	 
 				 } ;		
