@@ -22,15 +22,15 @@
 	<div><canvas id="realtimeChart" width="750" height="400"></canvas></div>
 	<div style="display:block;">
 		<div id="collapseBtn2" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement()' /></div>
-		<div id="sno2" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(1)' /></div>
-		<div id="sno3" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(2)' /></div>
-		<div id="sno4" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(3)' /></div>
-		<div id="sno5" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(4)' /></div>
-		<div id="sno6" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(5)' /></div>
-		<div id="sno7" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(6)' /></div>
-		<div id="sno8" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(7)' /></div>
-		<div id="sno9" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(8)' /></div>
-		<div id="sno1" style="justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='showChart(9)' /></div>		
+		<div id="sno2" style="justify-content:center;"><img src='choiceBtn11.png' style='cursor:pointer;' onclick='showChart(1)' /></div>
+		<div id="sno3" style="justify-content:center;"><img src='choiceBtn21.png' style='cursor:pointer;' onclick='showChart(2)' /></div>
+		<div id="sno4" style="justify-content:center;"><img src='choiceBtn31.png' style='cursor:pointer;' onclick='showChart(3)' /></div>
+		<div id="sno5" style="justify-content:center;"><img src='choiceBtn41.png' style='cursor:pointer;' onclick='showChart(4)' /></div>
+		<div id="sno6" style="justify-content:center;"><img src='choiceBtn51.png' style='cursor:pointer;' onclick='showChart(5)' /></div>
+		<div id="sno7" style="justify-content:center;"><img src='choiceBtn61.png' style='cursor:pointer;' onclick='showChart(6)' /></div>
+		<div id="sno8" style="justify-content:center;"><img src='choiceBtn71.png' style='cursor:pointer;' onclick='showChart(7)' /></div>
+		<div id="sno9" style="justify-content:center;"><img src='choiceBtn81.png' style='cursor:pointer;' onclick='showChart(8)' /></div>
+		<div id="sno1" style="justify-content:center;"><img src='choiceBtn91.png' style='cursor:pointer;' onclick='showChart(9)' /></div>		
 	</div>
  </div>
 <!-- Chart.js -->
@@ -72,7 +72,7 @@
 		  while(intervalIds.length) {
 			  clearInterval(intervalIds.pop());
 		  }
-		  let mymatrix,wi_c,wi_cc,wi_t,wi_tt,midline_txt,item_price,item_name1,dataPoints=[],labels=[],mid_price=0,min_price=0,max_price=0,title="",point_no=0;
+		  let mymatrix,wi_c,wi_cc,wi_t,wi_tt,midline_txt,incdecPrice,incdecPrice_txt,item_price,item_name1,dataPoints=[],labels=[],mid_price=0,min_price=0,max_price=0,title="",point_no=0;
 		  const oldChart=document.getElementById("realtimeChart");
 		  if (oldChart) oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;
 	      const ctx = document.getElementById('realtimeChart').getContext('2d');			  
@@ -97,8 +97,13 @@
 				   if ( n == "11" ) incdecPrice= quote_obj[n] ;
 				   if ( n == "200009" ) item_name1=quote_obj[n] ;
 				}
+				if (incdecPrice>0) 
+					incdecPrice_txt= "+" + incdecPrice.toString()
+				else
+					incdecPrice_txt= incdecPrice.toString()
 				mid_price=item_price-incdecPrice;
-				midline_txt= item_name1 + '平盤：' + mid_price.toString() + '【' + incdecPrice + '】' ;  
+				mid_price=mid_price.toFixed(2) ;
+				midline_txt= item_name1 + '平盤：' + mid_price.toString() + '【' +incdecPrice_txt + '】' ;  
 			}
 			const chart = new Chart(ctx, {
 				  type: 'line',
