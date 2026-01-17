@@ -124,7 +124,10 @@
 				  },
 				  options: {
 					responsive: true,
-					animation: false,             // 關閉動畫，加速更新
+					animation: {
+					onComplete() {
+						setTimeout(() => chart.update(), 0);
+					}}, 
 					plugins: {
 					  legend: { display: false },
 					  tooltip: {
