@@ -173,8 +173,15 @@
 		  // 接續執行任務
 		  let running=false , count=0;
 		  id=setInterval(async() => {
-				if (running) return;
-				running=true;
+				const marketClosetime = "13:30:00"; 
+				const [h, m, s] = marketClosetime.split(':').map(Number);
+				const timeToSeconds= h * 3600 + m * 60 + s ;
+				const now = new Date();
+				const nowSeconds = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();	
+				if (nowSeconds > timeToSeconds || running) 
+					return
+				 else 	
+				  running=true;
 				const post =await getData(stockId) ;
 				if (post) {
 						wi_o=post.data.o;
