@@ -58,6 +58,17 @@
 			  return result; // ← 正確把值傳出去 
 		}
 	 }
+	 
+    async function getData2() {
+		  const response = await fetch("https://ws.api.cnyes.com/ws/api/v1/charting/history?symbol=TWS:TSE01:INDEX&resolution=D&quote=1&from=NaN&to=NaN"); 
+		  if  (!response.ok) {
+			  throw new Error(`HTTP error!!!! status: ${response.status}`);
+			}
+		  else {
+			  const result = await response.json();
+			  return result; // ← 正確把值傳出去 
+		  }
+	 }
 
 	function collapseElement() {
 		while(intervalIds.length){
@@ -72,11 +83,12 @@
 		  while(intervalIds.length) {
 			  clearInterval(intervalIds.pop());
 		  }
-		  let mymatrix,wi_c,wi_cc,wi_t,wi_tt,midline_txt,incdecPrice,incdecPrice_txt,item_price,item_name1,dataPoints=[],labels=[],mid_price=0,min_price=0,max_price=0,title="",point_no=0;
+		  let mymatrix,wi_o,wi_h,wi_c,wi_cc,wi_t,wi_tt,midline_txt,incdecPrice,incdecPrice2,incdecPrice_txt,item_price,item_price2,item_name1,dataPoints=[],labels=[],mid_price=0,mid_price2=0,min_price=0,max_price=0,title="",point_no=0;
 		  const oldChart=document.getElementById("realtimeChart");
 		  if (oldChart) oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;
 	      const ctx = document.getElementById('realtimeChart').getContext('2d');			  
-		  const post = await getData(stockId);  // ← 正確接收
+		  const post = await getData(stockId);  
+		  const post2 = await getData2();  // ← 正確接收
 		  if (post) {
 			//	const wi_tmp=post.data.c ;
 				wi_c=post.data.c ;
@@ -103,7 +115,23 @@
 					incdecPrice_txt= incdecPrice.toString()
 				mid_price=item_price-incdecPrice;
 				mid_price=mid_price.toFixed(2) ;
-				midline_txt= item_name1 + '平盤：' + mid_price.toString() + '【' +incdecPrice_txt + '】' ;  
+				// midline_txt= item_name1 + '平盤：' + mid_price.toString() + '【' +incdecPrice_txt + '】' ;  
+			}
+			if (post2) {
+				wi_o=post2.data.o;
+				wi_h=post2.data.h;
+				wi_c=post2.data.c;
+				item_price2=wi_c[0];
+				const quote_obj = post2.data.quote ;
+				for (var n in quote_obj) {
+				   if ( n == "200009" )  item_name2=quote_obj[n] ;
+				   if ( n == "11" ) incdecPrice2= quote_obj[n] ;
+				}
+				mid_price2=wi_c-incdecPrice2;
+				mid_price2=mid_price2.toFixed(2);
+				midline_txt= midline_txt2= '大盤平盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']' + 
+				item_name1 + '；平盤：' + mid_price.toString() + '【' +incdecPrice_txt + '】' ;  
+				// midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 
 			}
 			const chart = new Chart(ctx, {
 				  type: 'line',
