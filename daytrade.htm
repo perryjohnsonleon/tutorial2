@@ -177,25 +177,29 @@
 				running=true;
 				const post =await getData(stockId) ;
 				if (post) {
-					wi_c=post.data.c ;
-					wi_d=post.data.d ;
-					wi_t=post.data.t ;
-					wi_cc=[...wi_c].reverse() ;
-					wi_tt=[...wi_t].reverse() ;
-					dataPoints=[...wi_cc] ;
-					for (i=0;i< wi_tt.length ;i++) {
-						let date = new Date(wi_tt[i] * 1000);
-						let time = date.toLocaleTimeString('zh-CN', {hour12: false,});
-						wi_tt[i]=time;
+						wi_o=post.data.o;
+						wi_h=post.data.h;
+						wi_c=post.data.c;
+						const now = new Date();
+						let time = now.toLocaleTimeString('zh-TW', { hour12: false, timeStyle: 'medium' });
+						const hour = parseInt(time.split(":")[0], 10);
+						const min = parseInt(time.split(":")[1], 10) ;
+						if ( min % 10===0) 
+							timeLabel=hour.toString() + min.toString() 
+						else timeLabel=""; 
+						const quote_obj = post.data.quote ;
+						for ( var n in quote_obj) {
+						   if ( n == "200009" )  item_name=quote_obj[n] ;
+						   if ( n == "11" ) incdecPrice=quote_obj[n] ;
+						   if ( n == "6" ) item_price=quote_obj[n] ;
+						}
+						mid_price=item_price-incdecPrice;
+						mid_price=mid_price.toFixed(2) ;
+						midline_txt= item_name+'平盤：'+mid_price.toString() ; 
+						midline_txt = midline_txt + "【" + item_price.toString() + "】";						
 					}
-					labels=[...wi_tt];
-					const quote_obj = post.data.quote ;
-					for ( var n in quote_obj) {
-					   if ( n == "6" ) mid_price = quote_obj[n] ;
-					   if ( n == "11" ) incdecPrice= quote_obj[n] ;
-					}
-					mid_price=item_price-incdecPrice;					
-				}
+				 labels.push(timeLabel);
+				 dataPoints.push(item_price);
 				chart.update();	
 				count++ ;
 				running=false ;
