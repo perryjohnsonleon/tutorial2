@@ -11,8 +11,8 @@
 		color: #fff;
 	  }
 	  canvas {
-		max-width: 800px;
-		margin: 20px auto;
+		max-width:400px;
+		margin:0px ;
 		display: block;
 	  }
 	</style>
@@ -76,7 +76,8 @@
 		  const oldChart=document.getElementById("realtimeChart");
 		  if (oldChart) oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;
 	      const ctx = document.getElementById('realtimeChart').getContext('2d');			  
-		  const post = await getData(stockId);  // ← 正確接收
+		  const post = await getData(stockId);  
+		  const post2 = await getData2();
 		  if (post) {
 			//	const wi_tmp=post.data.c ;
 				wi_c=post.data.c ;
@@ -151,7 +152,11 @@
 							  content: midline_txt,			// '中線 y=38'
 							  color: '#ff4444',
 							  backgroundColor: '#000',
-							  position: 'end'
+							  position: 'end',
+							  font: {
+								size: 8,
+								weight: 100,  // Set 'lighter'
+							 }
 							}
 						  }
 						}
