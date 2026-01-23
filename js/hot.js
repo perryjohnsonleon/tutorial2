@@ -435,8 +435,8 @@
 					max_price=mid_price1*1.12 ;
 					min_price=mid_price1*0.85 ;
 				}				
-				midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
-				midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";
+			// midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
+				midline_txt1 = item_price1.toString();
 			}
 		  if (sw_no==2 && post2) {
 				wi_o=post2.data.o;
@@ -450,7 +450,7 @@
 				}
 				mid_price2=wi_c-incdecPrice2;
 				mid_price2=mid_price2.toFixed(2);
-				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 
+				midline_txt2= incdecPrice2.toString() ; 
 				wi_gg = Array(wi_tt.length).fill(item_price2);
 				dataPoints2=[...wi_gg] ;
 			}
@@ -623,8 +623,8 @@
 						}
 						mid_price1=item_price1-incdecPrice1;
 						mid_price1=mid_price1.toFixed(2) ;
-						midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
-						midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";						
+					//	midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
+						midline_txt1 = item_price1.toString();						
 					}
 				  if (rightVisible==true && post2)  {
 						wi_o=post2.data.o;
@@ -637,8 +637,8 @@
 						   if ( n == "11" ) incdecPrice2= quote_obj[n] ;
 						}
 						mid_price2=item_price2-incdecPrice2;
-						midline_txt2= item_name2+'平盤：'+mid_price2.toString() ; 
-						midline_txt2 = midline_txt2 + "【" + item_price2.toString() + "】";				
+					//	midline_txt2= item_name2+'平盤：'+mid_price2.toString() ; 
+						midline_txt2 = item_price2.toString() ;				
 					}
 				 labels.push(timeLabel);
 				 dataPoints1.push(item_price1);
