@@ -433,7 +433,7 @@
 				}
 				if (item_price1<70 && incdecPrice1>2.5) {
 					max_price=mid_price1*1.12 ;
-					min_price=mid_price1*0.9 ;
+					min_price=mid_price1*0.85 ;
 				}				
 				midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
 				midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";
