@@ -3,7 +3,7 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   background-color:#000;color:#fff;
   }
-.wi-head , .item-head {
+.item-head {
   // background-color: #003344;
    color:white;
    font-weight:bold;
@@ -14,7 +14,6 @@ body {
   // border-color:#007799;
   // border-color:rgba(0, 0, 0)
    border-width:1px;
-   width:100%;
   }
 <!-- .wi {color:ffb300;font-weight:bold;font-size:20px} --> 
 .head-items {
