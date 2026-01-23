@@ -535,7 +535,7 @@
 						  color: '#c431a7',						// '#00ff88'
 						  backgroundColor: '#000' ,
 						  font: {
-							size: 8,
+							size: 12,
 							weight: 100,  // Set 'lighter'
 						  }
 						//  position: 'start'
@@ -555,11 +555,7 @@
 						  fontWeight:100,
 						  color: '#00b3ff',
 						  backgroundColor: '#000',
-						  position: 'end',
-						  font: {
-								size: 8,
-								weight: 100, 
-						 }
+						  position: 'end'
 						}
 					  }
 					}
