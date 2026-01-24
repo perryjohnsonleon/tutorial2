@@ -105,11 +105,11 @@
 	   let itemPrice_matrix="" ;
 	   let oldCanvas = document.getElementById("hiddenMsg2");
 	   if (oldCanvas && stockId == -1) {
-	      oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:none;'><canvas id='myChart' width='750' height='400'  display='none'></canvas><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getPost(0)' /></div></div>" ;
+	      oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:none;'><canvas id='myChart' width='320' height='164'  display='none'></canvas><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getPost(0)' /></div></div>" ;
 	      return 0;
 		}
 		else {
-		  oldCanvas.outerHTML = "<div id='hiddenMsg2'><canvas id='myChart' width='750' height='400'></canvas><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getpricePost(-1)' /></div></div>" ;
+		  oldCanvas.outerHTML = "<div id='hiddenMsg2'><canvas id='myChart' width='320' height='164'></canvas><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getpricePost(-1)' /></div></div>" ;
 		}
 		let fetchUrl_str1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:" , fetchUrl_str2=":STOCK&quote=1"   ;
 		let fetchUrl_str=fetchUrl_str1 + stockId_list[stockId] + fetchUrl_str2 ;
@@ -214,28 +214,32 @@
 			if (post) {
 				const quote_obj = post.data.quote ;
 				for ( var n in quote_obj) {
-				if ( n == "200009" ) document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" + quote_obj[n] + "</button>" ;
-				if ( n == "6" ) elemId_price= quote_obj[n] ;
-				if ( n == "11" ) {
-						if ( quote_obj[n]> 0) {
-								elemId_price_flag= 1 ;
-								document.getElementById(elemId_3).classList.add('risePrice');
-							} 
-						else {
-							if ( quote_obj[n] === 0){ 
-								elemId_price_flag= 0 ;
-								document.getElementById(elemId_3).classList.add('flatPrice');
-								}
+					const preNo = stockId_list[stockId].substring(0, 2);
+					if ( n == "200009" ) {
+						let itemHeadname= quote_obj[n] ;
+						if (preNo == "00") itemHeadname= stockId_list[stockId] ;
+						document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" +  itemHeadname + "</button>" 
+					}
+					if ( n == "6" ) elemId_price= quote_obj[n] ;
+					if ( n == "11" ) {
+							if ( quote_obj[n]> 0) {
+									elemId_price_flag= 1 ;
+									document.getElementById(elemId_3).classList.add('risePrice');
+								} 
 							else {
-								elemId_price_flag= -1 ;
-								document.getElementById(elemId_3).classList.add('fellPrice');	
-								}
-						}
-					document.getElementById(elemId_3).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
-				
-				}	   
-				if ( n == "12" ) document.getElementById(elemId_4).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
-				if ( n == "13" ) document.getElementById(elemId_5).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
+								if ( quote_obj[n] === 0){ 
+									elemId_price_flag= 0 ;
+									document.getElementById(elemId_3).classList.add('flatPrice');
+									}
+								else {
+									elemId_price_flag= -1 ;
+									document.getElementById(elemId_3).classList.add('fellPrice');	
+									}
+							}
+						document.getElementById(elemId_3).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;					
+					}	   
+					if ( n == "12" ) document.getElementById(elemId_4).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
+					if ( n == "13" ) document.getElementById(elemId_5).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
 				}
 				document.getElementById(elemId_2).innerHTML =  "<button id='" + btn2_expandId +"' onclick='realtimePrice(" + stockId + ",true);'>" + elemId_price + "</button>" ;
 				if (elemId_price_flag === 1)  document.getElementById(btn2_expandId).classList.add('btn-risePrice');
@@ -394,7 +398,7 @@
 		const oldcollapseBtns=document.getElementById("collapseBtns");
 		const oldhiddenMsg2=document.getElementById("hiddenMsg2");	
 		if (oldhiddenMsg2 && firstVisit) oldhiddenMsg2.style.display = "flex" ;		
-		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;
+		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='320' height='164' style='display:block;'></canvas>" ;
 		if  (oldcollapseBtn2 && firstVisit) {
 			oldcollapseBtns.outerHTML = "<div id='collapseBtns' style='display:block'><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" +
 			"<div id='oneBtn' style='justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
@@ -680,7 +684,7 @@
 		firstVisit = false;
 	    let mask_item2 = document.getElementById("hiddenMsg2");
 	    if (mask_item2) {
-	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:flex;'><div><canvas id='realtimeChart' width='750' height='400' style='display:none;'></canvas></div>" + 
+	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:flex;'><div><canvas id='realtimeChart' width='320' height='164' style='display:none;'></canvas></div>" + 
 			"<div id='collapseBtns' style='display:flex'><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" + 
 			"<div id='oneBtn' style='display:none;justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='twinBtn' style='display:none;justify-content:center;'><img src='twinbtn.png' style='cursor:pointer;' /></div>" +			
