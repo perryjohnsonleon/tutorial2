@@ -131,11 +131,11 @@ display: block;
 .wi,.item {
  // background-color:#003344;
  color:#FFB300;
- font-weight:bold;
- font-size:14px;border-style:solid;
+ font-weight:lighter;
+ font-size:12px;border-style:solid;
  border-color:#103232;
  border-width:1px;
- width:50px;
+ width:60px;
 }
 
 #wrap {
