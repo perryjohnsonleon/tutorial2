@@ -58,7 +58,7 @@ canvas {
   padding:2px;
   color: #F30E4B;
   font-weight:600 ; 
-  background-color:#6a9595;
+  background-color:rgba(82,82,82);
   font-size:15px;  
   border: none;
  }
@@ -69,7 +69,7 @@ canvas {
   padding:2px;
   color: #1DC91D;
   font-weight:600 ; 
-  background-color:#6a9595; 
+  background-color:rgba(82,82,82); 
   font-size:15px; 
   border: none;
   }
@@ -79,7 +79,7 @@ canvas {
   border:0px;
   padding:2px;
   color:#c3dbbd;
-  background-color:#6a9595;
+  background-color:rgba(82,82,82);
   font-size:15px;   
   border: none;
   }	
