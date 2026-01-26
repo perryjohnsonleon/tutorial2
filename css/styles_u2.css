@@ -38,10 +38,9 @@ canvas {
   margin:0px;
   border:0px;
   padding:2px;
-  color:#fff;
-// color:#0B0A0A;
+  color:#0B0A0A;
   font-weight:600 ;
-  background-color:rgba(96, 136, 136); 
+  background-color:rgba(82,82,82); 
  // background-color:#007799; 
   font-size:13px;
   border: none;
@@ -49,7 +48,7 @@ canvas {
 
 .btn2-expand {
  color:#000;
- background-color:#6a9595; 
+ background-color:rgba(82,82,82); 
  border: none;
 }
 
