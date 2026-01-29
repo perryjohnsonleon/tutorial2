@@ -3,9 +3,9 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   background-color:#000;color:#fff;
   }
-.item-head {
+.wi-head , .item-head {
   // background-color: #003344;
-   color:#EF6317;
+   color:white;
    font-weight:bold;
    font-size:16px;
    border-width:1px;
@@ -14,7 +14,7 @@ body {
   // border-color:#007799;
   // border-color:rgba(0, 0, 0)
    border-width:1px;
-   width:75px;
+   width:100%;
   }
 <!-- .wi {color:ffb300;font-weight:bold;font-size:20px} --> 
 .head-items {
@@ -22,9 +22,9 @@ body {
 }
 
 canvas {
-max-width:400px;
-margin:0px ;
-display: block;
+	max-width:400px;
+	margin:0px ;
+	display:block;
 }
  .wi-box {
 	display:inline-block;
@@ -38,19 +38,17 @@ display: block;
   margin:0px;
   border:0px;
   padding:2px;
-//  color:#EF6317;
   color:#0B0A0A;
   font-weight:600 ;
   background-color:rgba(82,82,82); 
  // background-color:#007799; 
-  font-size:12px;
+  font-size:13px;
   border: none;
 }	
 
 .btn2-expand {
  color:#000;
  background-color:rgba(82,82,82); 
- // background-color:#6a9595; 
  border: none;
 }
 
@@ -61,7 +59,7 @@ display: block;
   color: #F30E4B;
   font-weight:600 ; 
   background-color:rgba(82,82,82);
-  font-size:12px;  
+  font-size:15px;  
   border: none;
  }
 
@@ -71,8 +69,8 @@ display: block;
   padding:2px;
   color: #1DC91D;
   font-weight:600 ; 
-  background-color:rgba(82,82,82);
-  font-size:12px; 
+  background-color:rgba(82,82,82); 
+  font-size:15px; 
   border: none;
   }
 
@@ -82,7 +80,7 @@ display: block;
   padding:2px;
   color:#c3dbbd;
   background-color:rgba(82,82,82);
-  font-size:12px;   
+  font-size:15px;   
   border: none;
   }	
 
@@ -111,31 +109,43 @@ display: block;
   position:absolute;
   }
 
-.view,.view-items {
-  flex:none;  
-}
-
 .data-items {
-  background-color:rgba(150, 212, 212, 0.4);
-  flex:none;  
-  display:block ;
+  background-color:rgba(150, 212, 212, 0.4);	
+  display:flex ;
   margin:5px ;
 }
 
 .items {
-  display:flex ;
   flex:none;
   width:25%;
+}
+
+.item2 {
+ font-size:12px;
+ border-style:solid;
+ border-color:#103232;
+ border-width:1px;
+ width:74px;
+}
+
+.item3 {
+ font-size:12px;
+ color:#FFB300;
+ border-style:solid;
+ border-color:#103232;
+ border-width:1px;
+ width:52px;
 }
 
 .wi,.item {
  // background-color:#003344;
  color:#FFB300;
- font-weight:lighter;
- font-size:12px;border-style:solid;
+ font-weight:bold;
+ font-size:16px;
+ border-style:solid;
  border-color:#103232;
  border-width:1px;
- width:60px;
+ width:30%;
 }
 
 #wrap {
