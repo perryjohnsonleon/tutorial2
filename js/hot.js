@@ -1,5 +1,5 @@
 	const element1 = document.getElementById("myBar1");
-	const stockId_list=['2330','1102','2353','1101','2356','2454','1402','2324','8150','2317','2002','2027','2303','2308','2887','2347','2449','5410','3706','1301','2371','1504','0050','0056'];
+	const stockId_list=['2330','2454','2308','2317','2303','2356','2353','2324','2344','2408','6770','2337','2347','2371','1504','2891','2887','2884','1102','00982A','00980A','00981A','0050','0056'];
 	const mask_item1 = document.getElementById("hiddenMsg1") ;
 	const mask_item2 = document.getElementById("hiddenMsg2") ;
 	const mask_button = document.getElementById("collapseBtn2") ;
@@ -105,11 +105,11 @@
 	   let itemPrice_matrix="" ;
 	   let oldCanvas = document.getElementById("hiddenMsg2");
 	   if (oldCanvas && stockId == -1) {
-	      oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:none;'><canvas id='myChart' width='750' height='400'  display='none'></canvas><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getPost(0)' /></div></div>" ;
+	      oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:none;'><canvas id='myChart' width='320' height='200'  display='none'></canvas><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getPost(0)' /></div></div>" ;
 	      return 0;
 		}
 		else {
-		  oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:block;'><canvas id='myChart' width='750' height='400'></canvas><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getpricePost(-1)' /></div></div>" ;
+		  oldCanvas.outerHTML = "<div id='hiddenMsg2'><canvas id='myChart' width='320' height='200'></canvas><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getpricePost(-1)' /></div></div>" ;
 		}
 		let fetchUrl_str1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:" , fetchUrl_str2=":STOCK&quote=1"   ;
 		let fetchUrl_str=fetchUrl_str1 + stockId_list[stockId] + fetchUrl_str2 ;
@@ -214,28 +214,32 @@
 			if (post) {
 				const quote_obj = post.data.quote ;
 				for ( var n in quote_obj) {
-				if ( n == "200009" ) document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" + quote_obj[n] + "</button>" ;
-				if ( n == "6" ) elemId_price= quote_obj[n] ;
-				if ( n == "11" ) {
-						if ( quote_obj[n]> 0) {
-								elemId_price_flag= 1 ;
-								document.getElementById(elemId_3).classList.add('risePrice');
-							} 
-						else {
-							if ( quote_obj[n] === 0){ 
-								elemId_price_flag= 0 ;
-								document.getElementById(elemId_3).classList.add('flatPrice');
-								}
+					const preNo = stockId_list[stockId].substring(0, 2);
+					if ( n == "200009" ) {
+						let itemHeadname= quote_obj[n] ;
+						if (preNo == "00") itemHeadname= stockId_list[stockId] ;
+						document.getElementById(elemId_1).innerHTML =  "<button class='btn-expand' onclick='showElement(" + stockId + ",false);'>" +  itemHeadname + "</button>" 
+					}
+					if ( n == "6" ) elemId_price= quote_obj[n] ;
+					if ( n == "11" ) {
+							if ( quote_obj[n]> 0) {
+									elemId_price_flag= 1 ;
+									document.getElementById(elemId_3).classList.add('risePrice');
+								} 
 							else {
-								elemId_price_flag= -1 ;
-								document.getElementById(elemId_3).classList.add('fellPrice');	
-								}
-						}
-					document.getElementById(elemId_3).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
-				
-				}	   
-				if ( n == "12" ) document.getElementById(elemId_4).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
-				if ( n == "13" ) document.getElementById(elemId_5).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
+								if ( quote_obj[n] === 0){ 
+									elemId_price_flag= 0 ;
+									document.getElementById(elemId_3).classList.add('flatPrice');
+									}
+								else {
+									elemId_price_flag= -1 ;
+									document.getElementById(elemId_3).classList.add('fellPrice');	
+									}
+							}
+						document.getElementById(elemId_3).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;					
+					}	   
+					if ( n == "12" ) document.getElementById(elemId_4).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
+					if ( n == "13" ) document.getElementById(elemId_5).innerHTML =  "<span class='span_rpt'>" + quote_obj[n] + "</span>" ;
 				}
 				document.getElementById(elemId_2).innerHTML =  "<button id='" + btn2_expandId +"' onclick='realtimePrice(" + stockId + ",true);'>" + elemId_price + "</button>" ;
 				if (elemId_price_flag === 1)  document.getElementById(btn2_expandId).classList.add('btn-risePrice');
@@ -393,10 +397,10 @@
 		const oldstopBtn=document.getElementById("stopBtn");
 		const oldcollapseBtns=document.getElementById("collapseBtns");
 		const oldhiddenMsg2=document.getElementById("hiddenMsg2");	
-		if (oldhiddenMsg2 && firstVisit) oldhiddenMsg2.style.display = "block" ;		
-		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='750' height='400' style='display:block;'></canvas>" ;
+		if (oldhiddenMsg2 && firstVisit) oldhiddenMsg2.style.display = "flex" ;		
+		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='320' height='200' style='display:block;'></canvas>" ;
 		if  (oldcollapseBtn2 && firstVisit) {
-			oldcollapseBtns.outerHTML = "<div id='collapseBtns' style='display:flex'><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" +
+			oldcollapseBtns.outerHTML = "<div id='collapseBtns' style='display:block'><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" +
 			"<div id='oneBtn' style='justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='twinBtn' style='justify-content:center;'><img src='twinbtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='stopBtn' style='justify-content:center;'><img src='stopbtn.png' style='cursor:pointer;' /></div>" +
@@ -425,18 +429,18 @@
 				}
 				mid_price1=item_price1-incdecPrice1;
 				mid_price1=mid_price1.toFixed(2);
-				max_price=mid_price1*1.05 ;
-				min_price=mid_price1*0.95 ;
+				max_price=mid_price1*1.15 ;
+				min_price=mid_price1*0.85 ;
 				if (item_price1>900 && incdecPrice1>50) {
-					max_price=mid_price1*1.15 ;
-					min_price=mid_price1*0.85 ;
+					max_price=mid_price1*1.18 ;
+					min_price=mid_price1*0.82 ;
 				}
 				if (item_price1<70 && incdecPrice1>2.5) {
 					max_price=mid_price1*1.12 ;
-					min_price=mid_price1*0.9 ;
+					min_price=mid_price1*0.85 ;
 				}				
-				midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
-				midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";
+			// midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
+				midline_txt1 = item_price1.toString();
 			}
 		  if (sw_no==2 && post2) {
 				wi_o=post2.data.o;
@@ -450,7 +454,7 @@
 				}
 				mid_price2=wi_c-incdecPrice2;
 				mid_price2=mid_price2.toFixed(2);
-				midline_txt2= '大盤：' + mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 
+				midline_txt2= incdecPrice2.toString() ; 
 				wi_gg = Array(wi_tt.length).fill(item_price2);
 				dataPoints2=[...wi_gg] ;
 			}
@@ -536,7 +540,7 @@
 						  backgroundColor: '#000' ,
 						  font: {
 							size: 8,
-							weight: 100,  // Set 'lighter'
+							weight: 250,  // Set 'lighter'
 						  }
 						//  position: 'start'
 						}
@@ -557,9 +561,9 @@
 						  backgroundColor: '#000',
 						  position: 'end',
 						  font: {
-								size: 8,
-								weight: 100, 
-						 }
+							size: 8,
+							weight: 250,  // Set 'lighter'
+						  }
 						}
 					  }
 					}
@@ -623,8 +627,8 @@
 						}
 						mid_price1=item_price1-incdecPrice1;
 						mid_price1=mid_price1.toFixed(2) ;
-						midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
-						midline_txt1 = midline_txt1 + "【" + item_price1.toString() + "】";						
+					//	midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
+						midline_txt1 = item_price1.toString();						
 					}
 				  if (rightVisible==true && post2)  {
 						wi_o=post2.data.o;
@@ -637,8 +641,8 @@
 						   if ( n == "11" ) incdecPrice2= quote_obj[n] ;
 						}
 						mid_price2=item_price2-incdecPrice2;
-						midline_txt2= item_name2+'平盤：'+mid_price2.toString() ; 
-						midline_txt2 = midline_txt2 + "【" + item_price2.toString() + "】";				
+					//	midline_txt2= item_name2+'平盤：'+mid_price2.toString() ; 
+						midline_txt2 = item_price2.toString() ;				
 					}
 				 labels.push(timeLabel);
 				 dataPoints1.push(item_price1);
@@ -680,7 +684,7 @@
 		firstVisit = false;
 	    let mask_item2 = document.getElementById("hiddenMsg2");
 	    if (mask_item2) {
-	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:block;'><div><canvas id='realtimeChart' width='750' height='400' style='display:none;'></canvas></div>" + 
+	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:flex;'><div><canvas id='realtimeChart' width='320' height='200' style='display:none;'></canvas></div>" + 
 			"<div id='collapseBtns' style='display:flex'><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" + 
 			"<div id='oneBtn' style='display:none;justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='twinBtn' style='display:none;justify-content:center;'><img src='twinbtn.png' style='cursor:pointer;' /></div>" +			
