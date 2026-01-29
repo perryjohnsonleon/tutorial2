@@ -437,7 +437,7 @@
 				}
 				if (item_price1<70 && incdecPrice1>2.5) {
 					max_price=mid_price1*1.12 ;
-					min_price=mid_price1*0.85 ;
+					min_price=mid_price1*0.9 ;
 				}				
 			// midline_txt1= item_name1+'平盤：'+mid_price1.toString() ; 
 				midline_txt1 = item_price1.toString();
@@ -454,7 +454,7 @@
 				}
 				mid_price2=wi_c-incdecPrice2;
 				mid_price2=mid_price2.toFixed(2);
-				midline_txt2= incdecPrice2.toString() ; 
+				midline_txt2= mid_price2.toString() + '[' + incdecPrice2.toString() + ']'; 
 				wi_gg = Array(wi_tt.length).fill(item_price2);
 				dataPoints2=[...wi_gg] ;
 			}
@@ -536,6 +536,7 @@
 						label: {
 						  display: true,
 						  content: midline_txt1,				// '中線 y=38'
+						  fontWeight:200,
 						  color: '#c431a7',						// '#00ff88'
 						  backgroundColor: '#000' ,
 						  font: {
@@ -556,7 +557,7 @@
 						label: {
 						  display: true,
 						  content: midline_txt2 ,			// '中線 y=38'
-						  fontWeight:100,
+						  fontWeight:200,
 						  color: '#00b3ff',
 						  backgroundColor: '#000',
 						  position: 'end',
