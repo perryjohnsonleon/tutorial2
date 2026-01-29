@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />	
         <title>個股vs.大盤分時走勢圖</title>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -63,184 +63,194 @@
         </div>
 		<div id="hiddenMsg2" style="display:block">
 			<div><canvas id="realtimeChart" width="320" height="164" style="display:none;"></canvas></div>
-			<div style="display:flex">
-			<div id="collapseBtns" style="display:block">
+			<div id="collapseBtns" style="display:flex">
 			<div id="collapseBtn2" style="display:none;justify-content:center;"><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>
 			<div id="oneBtn" style="display:none;justify-content:center;"><img src='onebtn.png' style='cursor:pointer;' /></div>
 			<div id="twinBtn" style="display:none;justify-content:center;"><img src='twinbtn.png' style='cursor:pointer;' /></div>			
 			<div id="stopBtn" style="display:none;justify-content:center;"><img src='stopbtn.png' style='cursor:pointer;' onclick='collapseElement3()' /></div>
 			<div id="goBtn" style="display:none;justify-content:center;"><img src='gobtn.png' style='cursor:pointer;' onclick='collapseElement3()' /></div>
 			</div>
-			</div>
 		</div>
-              <div class="items">
-                  <div class="item-head" id="item-11"></div>
-                  <div class="item" id="item-21"></div>
-                  <div class="item" id="item-31"></div>
-                  <div class="item" id="item-41"></div>
-                  <div class="item" id="item-51"></div>
+          <div style="display:block;"> 
+              <div style="display:flex;">
+                  <div id="item-11" class="item2"></div>
+                  <div id="item-21" class="item3"></div>
+                  <div id="item-31" class="item3"></div>
+                  <div id="item-41" class="item3"></div>
+                  <div id="item-51" class="item3"></div>
               </div>
-			  <div class="items">
-                  <div class="item-head" id="item-12"></div>
-                  <div class="item" id="item-22"></div>
-                  <div class="item" id="item-32"></div>
-                  <div class="item" id="item-42"></div>
-                  <div class="item" id="item-52"></div>
+			  <div style="display:flex;">
+                  <div id="item-12" class="item2"></div>
+                  <div id="item-22" class="item3"></div>
+                  <div id="item-32" class="item3"></div>
+                  <div id="item-42" class="item3"></div>
+                  <div id="item-52" class="item3"></div>
               </div>  			  
-              <div class="items">
-                  <div class="item-head" id="item-13"></div>
-                  <div class="item" id="item-23"></div>
-                  <div class="item" id="item-33"></div>
-                  <div class="item" id="item-43"></div>
-                  <div class="item" id="item-53"></div>
+              <div style="display:flex;">
+                  <div id="item-13" class="item2"></div>
+                  <div id="item-23" class="item3"></div>
+                  <div id="item-33" class="item3"></div>
+                  <div id="item-43" class="item3"></div>
+                  <div id="item-53" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-14"></div>
-                  <div class="item" id="item-24"></div>
-                  <div class="item" id="item-34"></div>
-                  <div class="item" id="item-44"></div>
-                  <div class="item" id="item-54"></div>
+			  <div style="display:flex;">
+                  <div id="item-14" class="item2"></div>
+                  <div id="item-24" class="item3"></div>
+                  <div id="item-34" class="item3"></div>
+                  <div id="item-44" class="item3"></div>
+                  <div id="item-54" class="item3"></div>
               </div>  
-              <div class="items">
-                  <div class="item-head" id="item-15"></div>
-                  <div class="item" id="item-25"></div>
-                  <div class="item" id="item-35"></div>
-                  <div class="item" id="item-45"></div>
-                  <div class="item" id="item-55"></div>
+         </div>
+          <div style="display:block;"> 
+              <div style="display:flex;">
+                  <div id="item-15" class="item2"></div>
+                  <div id="item-25" class="item3"></div>
+                  <div id="item-35" class="item3"></div>
+                  <div id="item-45" class="item3"></div>
+                  <div id="item-55" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-16"></div>
-                  <div class="item" id="item-26"></div>
-                  <div class="item" id="item-36"></div>
-                  <div class="item" id="item-46"></div>
-                  <div class="item" id="item-56"></div>
+			  <div style="display:flex;">
+                  <div id="item-16" class="item2"></div>
+                  <div id="item-26" class="item3"></div>
+                  <div id="item-36" class="item3"></div>
+                  <div id="item-46" class="item3"></div>
+                  <div id="item-56" class="item3"></div>
               </div>  			  
-              <div class="items">
-                  <div class="item-head" id="item-17"></div>
-                  <div class="item" id="item-27"></div>
-                  <div class="item" id="item-37"></div>
-                  <div class="item" id="item-47"></div>
-                  <div class="item" id="item-57"></div>
+              <div style="display:flex;">
+                  <div id="item-17" class="item2"></div>
+                  <div id="item-27" class="item3"></div>
+                  <div id="item-37" class="item3"></div>
+                  <div id="item-47" class="item3"></div>
+                  <div id="item-57" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-18"></div>
-                  <div class="item" id="item-28"></div>
-                  <div class="item" id="item-38"></div>
-                  <div class="item" id="item-48"></div>
-                  <div class="item" id="item-58"></div>
+			  <div style="display:flex;">
+                  <div id="item-18" class="item2"></div>
+                  <div id="item-28" class="item3"></div>
+                  <div id="item-38" class="item3"></div>
+                  <div id="item-48" class="item3"></div>
+                  <div id="item-58" class="item3"></div>
               </div>  
-              <div class="items">
-                  <div class="item-head" id="item-19"></div>
-                  <div class="item" id="item-29"></div>
-                  <div class="item" id="item-39"></div>
-                  <div class="item" id="item-49"></div>
-                  <div class="item" id="item-59"></div>
+         </div>
+          <div style="display:block;"> 
+              <div style="display:flex;">
+                  <div id="item-19" class="item2"></div>
+                  <div id="item-29" class="item3"></div>
+                  <div id="item-39" class="item3"></div>
+                  <div id="item-49" class="item3"></div>
+                  <div id="item-59" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-110"></div>
-                  <div class="item" id="item-210"></div>
-                  <div class="item" id="item-310"></div>
-                  <div class="item" id="item-410"></div>
-                  <div class="item" id="item-510"></div>
+			  <div style="display:flex;">
+                  <div id="item-110" class="item2"></div>
+                  <div id="item-210" class="item3"></div>
+                  <div id="item-310" class="item3"></div>
+                  <div id="item-410" class="item3"></div>
+                  <div id="item-510" class="item3"></div>
               </div>  			  
-              <div class="items">
-                  <div class="item-head" id="item-111"></div>
-                  <div class="item" id="item-211"></div>
-                  <div class="item" id="item-311"></div>
-                  <div class="item" id="item-411"></div>
-                  <div class="item" id="item-511"></div>
+              <div style="display:flex;">
+                  <div id="item-111" class="item2"></div>
+                  <div id="item-211" class="item3"></div>
+                  <div id="item-311" class="item3"></div>
+                  <div id="item-411" class="item3"></div>
+                  <div id="item-511" class="item3"></div>
               </div>
-			  <div class="items">
-                  <div class="item-head" id="item-112"></div>
-                  <div class="item" id="item-212"></div>
-                  <div class="item" id="item-312"></div>
-                  <div class="item" id="item-412"></div>
-                  <div class="item" id="item-512"></div>
+			  <div style="display:flex;">
+                  <div id="item-112" class="item2"></div>
+                  <div id="item-212" class="item3"></div>
+                  <div id="item-312" class="item3"></div>
+                  <div id="item-412" class="item3"></div>
+                  <div id="item-512" class="item3"></div>
               </div>  
-              <div class="items">
-                  <div class="item-head" id="item-113"></div>
-                  <div class="item" id="item-213"></div>
-                  <div class="item" id="item-313"></div>
-                  <div class="item" id="item-413"></div>
-                  <div class="item" id="item-513"></div>
+         </div>
+          <div style="display:block;"> 
+              <div style="display:flex;">
+                  <div id="item-113" class="item2"></div>
+                  <div id="item-213" class="item3"></div>
+                  <div id="item-313" class="item3"></div>
+                  <div id="item-413" class="item3"></div>
+                  <div id="item-513" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-114"></div>
-                  <div class="item" id="item-214"></div>
-                  <div class="item" id="item-314"></div>
-                  <div class="item" id="item-414"></div>
-                  <div class="item" id="item-514"></div>
+			  <div style="display:flex;">
+                  <div id="item-114" class="item2"></div>
+                  <div id="item-214" class="item3"></div>
+                  <div id="item-314" class="item3"></div>
+                  <div id="item-414" class="item3"></div>
+                  <div id="item-514" class="item3"></div>
               </div>  			  
-              <div class="items">
-                  <div class="item-head" id="item-115"></div>
-                  <div class="item" id="item-215"></div>
-                  <div class="item" id="item-315"></div>
-                  <div class="item" id="item-415"></div>
-                  <div class="item" id="item-515"></div>
+              <div style="display:flex;">
+                  <div id="item-115" class="item2"></div>
+                  <div id="item-215" class="item3"></div>
+                  <div id="item-315" class="item3"></div>
+                  <div id="item-415" class="item3"></div>
+                  <div id="item-515" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-116"></div>
-                  <div class="item" id="item-216"></div>
-                  <div class="item" id="item-316"></div>
-                  <div class="item" id="item-416"></div>
-                  <div class="item" id="item-516"></div>
+			  <div style="display:flex;">
+                  <div id="item-116" class="item2"></div>
+                  <div id="item-216" class="item3"></div>
+                  <div id="item-316" class="item3"></div>
+                  <div id="item-416" class="item3"></div>
+                  <div id="item-516" class="item3"></div>
               </div>  
-              <div class="items">
-                  <div class="item-head" id="item-117"></div>
-                  <div class="item" id="item-217"></div>
-                  <div class="item" id="item-317"></div>
-                  <div class="item" id="item-417"></div>
-                  <div class="item" id="item-517"></div>
+         </div>
+          <div style="display:block;"> 
+              <div style="display:flex;">
+                  <div id="item-117" class="item2"></div>
+                  <div id="item-217" class="item3"></div>
+                  <div id="item-317" class="item3"></div>
+                  <div id="item-417" class="item3"></div>
+                  <div id="item-517" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-118"></div>
-                  <div class="item" id="item-218"></div>
-                  <div class="item" id="item-318"></div>
-                  <div class="item" id="item-418"></div>
-                  <div class="item" id="item-518"></div>
+			  <div style="display:flex;">
+                  <div id="item-118" class="item2"></div>
+                  <div id="item-218" class="item3"></div>
+                  <div id="item-318" class="item3"></div>
+                  <div id="item-418" class="item3"></div>
+                  <div id="item-518" class="item3"></div>
               </div>  			  
-              <div class="items">
-                  <div class="item-head" id="item-119"></div>
-                  <div class="item" id="item-219"></div>
-                  <div class="item" id="item-319"></div>
-                  <div class="item" id="item-419"></div>
-                  <div class="item" id="item-519"></div>
+              <div style="display:flex;">
+                  <div id="item-119" class="item2"></div>
+                  <div id="item-219" class="item3"></div>
+                  <div id="item-319" class="item3"></div>
+                  <div id="item-419" class="item3"></div>
+                  <div id="item-519" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-120"></div>
-                  <div class="item" id="item-220"></div>
-                  <div class="item" id="item-320"></div>
-                  <div class="item" id="item-420"></div>
-                  <div class="item" id="item-520"></div>
-              </div>   
-              <div class="items">
-                  <div class="item-head" id="item-121"></div>
-                  <div class="item" id="item-221"></div>
-                  <div class="item" id="item-321"></div>
-                  <div class="item" id="item-421"></div>
-                  <div class="item" id="item-521"></div>
+			  <div style="display:flex;">
+                  <div id="item-120" class="item2"></div>
+                  <div id="item-220" class="item3"></div>
+                  <div id="item-320" class="item3"></div>
+                  <div id="item-420" class="item3"></div>
+                  <div id="item-520" class="item3"></div>
+              </div>  
+         </div>
+          <div style="display:block;"> 
+              <div style="display:flex;">
+                  <div id="item-121" class="item2"></div>
+                  <div id="item-221" class="item3"></div>
+                  <div id="item-321" class="item3"></div>
+                  <div id="item-421" class="item3"></div>
+                  <div id="item-521" class="item3"></div>
               </div>
-                  <div class="items">
-                  <div class="item-head" id="item-122"></div>
-                  <div class="item" id="item-222"></div>
-                  <div class="item" id="item-322"></div>
-                  <div class="item" id="item-422"></div>
-                  <div class="item" id="item-522"></div>
+			  <div style="display:flex;">
+                  <div id="item-122" class="item2"></div>
+                  <div id="item-222" class="item3"></div>
+                  <div id="item-322" class="item3"></div>
+                  <div id="item-422" class="item3"></div>
+                  <div id="item-522" class="item3"></div>
               </div>  			  
-              <div class="items">
-                  <div class="item-head" id="item-123"></div>
-                  <div class="item" id="item-223"></div>
-                  <div class="item" id="item-323"></div>
-                  <div class="item" id="item-423"></div>
-                  <div class="item" id="item-523"></div>
+              <div style="display:flex;">
+                  <div id="item-123" class="item2"></div>
+                  <div id="item-223" class="item3"></div>
+                  <div id="item-323" class="item3"></div>
+                  <div id="item-423" class="item3"></div>
+                  <div id="item-523" class="item3"></div>
               </div>
-			  <div class="items">
-                  <div class="item-head" id="item-124"></div>
-                  <div class="item" id="item-224"></div>
-                  <div class="item" id="item-324"></div>
-                  <div class="item" id="item-424"></div>
-                  <div class="item" id="item-524"></div>
-              </div>  		  
+			  <div style="display:flex;">
+                  <div id="item-124" class="item2"></div>
+                  <div id="item-224" class="item3"></div>
+                  <div id="item-324" class="item3"></div>
+                  <div id="item-424" class="item3"></div>
+                  <div id="item-524" class="item3"></div>
+              </div>  
+         </div>		  
          </div>
       </div>
     </div>
