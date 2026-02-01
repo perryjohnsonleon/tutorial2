@@ -1,5 +1,5 @@
 	const element1 = document.getElementById("myBar1");
-	const stockId_list=['2330','2454','2308','2317','2303','2356','2353','2324','2344','2408','6770','2337','2347','2371','1504','2891','2887','2884','1102','00982A','00980A','00981A','0050','0056'];
+	const stockId_list=['2330','2454','2308','2317','2303','2356','2353','1102','2324','2344','2408','6770','2337','2347','2371','1504','2891','2887','2884','00982A','00980A','00981A','0050','0056'];
 	const mask_item1 = document.getElementById("hiddenMsg1") ;
 	const mask_item2 = document.getElementById("hiddenMsg2") ;
 	const mask_button = document.getElementById("collapseBtn2") ;
@@ -105,11 +105,11 @@
 	   let itemPrice_matrix="" ;
 	   let oldCanvas = document.getElementById("hiddenMsg2");
 	   if (oldCanvas && stockId == -1) {
-	      oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:none;'><canvas id='myChart' width='320' height='164'  display='none'></canvas><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getPost(0)' /></div></div>" ;
+	      oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:none;'><canvas id='myChart' width='320' height='200'  display='none'></canvas><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getPost(0)' /></div></div>" ;
 	      return 0;
 		}
 		else {
-		  oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:block;'><canvas id='myChart' width='320' height='164'></canvas><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getpricePost(-1)' /></div></div>" ;
+		  oldCanvas.outerHTML = "<div id='hiddenMsg2' style='display:block;'><canvas id='myChart' width='320' height='200'></canvas><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='getpricePost(-1)' /></div></div>" ;
 		}
 		let fetchUrl_str1="https://ws.api.cnyes.com/ws/api/v1/charting/history?resolution=1&symbol=TWS:" , fetchUrl_str2=":STOCK&quote=1"   ;
 		let fetchUrl_str=fetchUrl_str1 + stockId_list[stockId] + fetchUrl_str2 ;
@@ -394,7 +394,7 @@
 		const oldcollapseBtns=document.getElementById("collapseBtns");
 		const oldhiddenMsg2=document.getElementById("hiddenMsg2");	
 		if (oldhiddenMsg2 && firstVisit) oldhiddenMsg2.style.display = "block" ;		
-		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='320' height='164' style='display:block;'></canvas>" ;
+		if (oldChart && firstVisit) oldChart.outerHTML = "<canvas id='realtimeChart' width='320' height='200' style='display:block;'></canvas>" ;
 		if  (oldcollapseBtn2 && firstVisit) {
 			oldcollapseBtns.outerHTML = "<div id='collapseBtns' style='display:flex'><div id='collapseBtn2' style='justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" +
 			"<div id='oneBtn' style='justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
@@ -425,11 +425,11 @@
 				}
 				mid_price1=item_price1-incdecPrice1;
 				mid_price1=mid_price1.toFixed(2);
-				max_price=mid_price1*1.05 ;
-				min_price=mid_price1*0.95 ;
+				max_price=mid_price1*1.15 ;
+				min_price=mid_price1*0.85 ;
 				if (item_price1>900 && incdecPrice1>50) {
-					max_price=mid_price1*1.15 ;
-					min_price=mid_price1*0.85 ;
+					max_price=mid_price1*1.18 ;
+					min_price=mid_price1*0.82 ;
 				}
 				if (item_price1<70 && incdecPrice1>2.5) {
 					max_price=mid_price1*1.12 ;
@@ -680,7 +680,7 @@
 		firstVisit = false;
 	    let mask_item2 = document.getElementById("hiddenMsg2");
 	    if (mask_item2) {
-	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:block;'><div><canvas id='realtimeChart' width='320' height='164' style='display:none;'></canvas></div>" + 
+	      mask_item2.outerHTML = "<div id='hiddenMsg2' style='display:block;'><div><canvas id='realtimeChart' width='320' height='200' style='display:none;'></canvas></div>" + 
 			"<div id='collapseBtns' style='display:flex'><div id='collapseBtn2' style='display:none;justify-content:center;'><img src='collapse.png' style='cursor:pointer;' onclick='collapseElement2()' /></div>" + 
 			"<div id='oneBtn' style='display:none;justify-content:center;'><img src='onebtn.png' style='cursor:pointer;' /></div>" +
 			"<div id='twinBtn' style='display:none;justify-content:center;'><img src='twinbtn.png' style='cursor:pointer;' /></div>" +			
